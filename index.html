@@ -92,4 +92,110 @@
         td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
 
         .status-in { color: var(--success); font-weight: bold; background: #dcfce7; padding: 4px 8px; border-radius: 4px; }
-        .status-out { color: var(--danger); font-weight: bold; background: #fee
+        .status-out { color: var(--danger); font-weight: bold; background: #fee2e2; padding: 4px 8px; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Record Department Tracking System</h1>
+        <p>File In/Out Management Portal</p>
+    </header>
+
+    <div class="form-card">
+        <h2 style="margin-bottom: 15px; font-size: 1.2rem;">New Entry (All Fields Compulsory)</h2>
+        <form id="fileForm" class="form-grid">
+            <div class="input-group">
+                <label>File Number *</label>
+                <input type="text" id="fileNo" placeholder="e.g. RD-405" required>
+            </div>
+            <div class="input-group">
+                <label>File Subject/Name *</label>
+                <input type="text" id="fileName" placeholder="e.g. Accounts 2024" required>
+            </div>
+            <div class="input-group">
+                <label>Department/Officer *</label>
+                <input type="text" id="dept" placeholder="Receiver Name" required>
+            </div>
+            <div class="input-group">
+                <label>Status *</label>
+                <select id="status" required>
+                    <option value="">-- Select Status --</option>
+                    <option value="IN">File IN (Returned)</option>
+                    <option value="OUT">File OUT (Issued)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Date *</label>
+                <input type="date" id="entryDate" required>
+            </div>
+            <button type="submit" class="btn-add">Add to Records</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table id="recordTable">
+            <thead>
+                <tr>
+                    <th>File No</th>
+                    <th>File Name</th>
+                    <th>Issued To / By</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RD-101</td>
+                    <td>Land Registry Docs</td>
+                    <td>Admin Office</td>
+                    <td><span class="status-out">OUT</span></td>
+                    <td>2026-04-28</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('fileForm');
+    const table = document.getElementById('recordTable').getElementsByTagName('tbody')[0];
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get values
+        const fileNo = document.getElementById('fileNo').value;
+        const fileName = document.getElementById('fileName').value;
+        const dept = document.getElementById('dept').value;
+        const status = document.getElementById('status').value;
+        const date = document.getElementById('entryDate').value;
+
+        // Create new row
+        const newRow = table.insertRow(0);
+
+        const cell1 = newRow.insertCell(0);
+        const cell2 = newRow.insertCell(1);
+        const cell3 = newRow.insertCell(2);
+        const cell4 = newRow.insertCell(3);
+        const cell5 = newRow.insertCell(4);
+
+        cell1.innerHTML = fileNo;
+        cell2.innerHTML = fileName;
+        cell3.innerHTML = dept;
+        cell4.innerHTML = `<span class="${status === 'IN' ? 'status-in' : 'status-out'}">${status}</span>`;
+        cell5.innerHTML = date;
+
+        // Clear form
+        form.reset();
+        alert("Record updated successfully!");
+    });
+</script>
+
+</body>
+</html>
