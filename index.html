@@ -23,17 +23,11 @@
             align-items: center;
         }
 
-        /* Logo Styling */
-        .logo-img {
-            max-width: 180px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-
-        header h1 { color: var(--citi-blue); font-size: 1.8rem; text-transform: uppercase; margin-top: 5px; }
+        .logo-img { max-width: 200px; height: auto; margin-bottom: 10px; }
+        header h1 { color: var(--citi-blue); font-size: 1.8rem; text-transform: uppercase; }
         
         .form-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
         .input-box { display: flex; flex-direction: column; }
         label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
         
@@ -44,15 +38,15 @@
         .btn-save:hover { background: var(--citi-gold); transform: translateY(-1px); }
         
         .table-card { background: white; border-radius: 12px; overflow-x: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
-        th { background: var(--citi-blue); color: white; padding: 15px; text-align: left; font-size: 0.8rem; text-transform: uppercase; }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        th { background: var(--citi-blue); color: white; padding: 15px; text-align: left; font-size: 0.75rem; text-transform: uppercase; }
         td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
         
         .status { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.7rem; }
         .in { background: #e6fffa; color: #2c7a7b; }
         .out { background: #fff5f5; color: #c53030; }
         
-        .btn-delete { background: #fee2e2; color: #991b1b; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
+        .btn-delete { background: #fee2e2; color: #991b1b; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
         .btn-delete:hover { background: #f87171; color: white; }
     </style>
 </head>
@@ -60,9 +54,9 @@
 
 <div class="container">
     <header>
-        <img src="http://googleusercontent.com/image_collection/image_retrieval/4242744485604911646_0" alt="Citi Housing Logo" class="logo-img">
+        <img src="http://googleusercontent.com/image_collection/image_retrieval/18059404095954067780_0" alt="Citi Housing Logo" class="logo-img">
         <h1>CITI HOUSING JHELUM</h1>
-        <p style="color: var(--citi-gold); font-weight: bold;">FILE RECORD MANAGEMENT SYSTEM</p>
+        <p style="color: var(--citi-gold); font-weight: bold; font-size: 0.9rem;">RECORD DEPARTMENT | FILE TRACKING</p>
     </header>
 
     <div class="form-card">
@@ -71,4 +65,119 @@
                 <div class="input-box"><label>App #</label><input type="text" class="nav-input" id="app" placeholder="App No"></div>
                 <div class="input-box"><label>Reg # *</label><input type="text" class="nav-input" id="reg" required placeholder="Registration No"></div>
                 <div class="input-box"><label>Block</label><input type="text" class="nav-input" id="block" placeholder="Block"></div>
-                <div class="input-box"><label>Plot #</label><input type="text" class="nav-input" id="plot
+                <div class="input-box"><label>Plot #</label><input type="text" class="nav-input" id="plot" placeholder="Plot"></div>
+                <div class="input-box"><label>Street #</label><input type="text" class="nav-input" id="street" placeholder="Street"></div>
+                <div class="input-box">
+                    <label>Department</label>
+                    <select id="dept" class="nav-input">
+                        <option value="Transfer">Transfer</option>
+                        <option value="Account">Account</option>
+                        <option value="Building">Building</option>
+                        <option value="Head Quarter">Head Quarter</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label>Status</label>
+                    <select id="status" class="nav-input">
+                        <option value="IN">FILE IN</option>
+                        <option value="OUT">FILE OUT</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-save">Save Entry</button>
+        </form>
+    </div>
+
+    <div class="table-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>App #</th>
+                    <th>Reg #</th>
+                    <th>Block</th>
+                    <th>Plot #</th>
+                    <th>Street #</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('mainForm');
+    const tbody = document.getElementById('tableBody');
+    const inputs = document.querySelectorAll('.nav-input');
+
+    // Arrow Navigation (Left/Right/Up/Down)
+    inputs.forEach((input, index) => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                e.preventDefault();
+                if (index < inputs.length - 1) inputs[index + 1].focus();
+            }
+            if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                e.preventDefault();
+                if (index > 0) inputs[index - 1].focus();
+            }
+        });
+    });
+
+    function loadData() {
+        tbody.innerHTML = '';
+        const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+        [...saved].reverse().forEach((data, index) => {
+            const originalIndex = saved.length - 1 - index;
+            appendRow(data, originalIndex);
+        });
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const obj = {
+            app: document.getElementById('app').value || '-',
+            reg: document.getElementById('reg').value,
+            block: document.getElementById('block').value || '-',
+            plot: document.getElementById('plot').value || '-',
+            street: document.getElementById('street').value || '-',
+            dept: document.getElementById('dept').value,
+            status: document.getElementById('status').value
+        };
+        const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+        saved.push(obj);
+        localStorage.setItem('citi_v3_data', JSON.stringify(saved));
+        form.reset();
+        loadData();
+        inputs[0].focus();
+    });
+
+    window.deleteRecord = function(index) {
+        if(confirm("Are you sure you want to delete this?")) {
+            const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+            saved.splice(index, 1);
+            localStorage.setItem('citi_v3_data', JSON.stringify(saved));
+            loadData();
+        }
+    }
+
+    function appendRow(d, index) {
+        const row = `<tr>
+            <td>${d.app}</td>
+            <td style="font-weight:bold; color:var(--citi-blue);">${d.reg}</td>
+            <td>${d.block}</td>
+            <td>${d.plot}</td>
+            <td>${d.street}</td>
+            <td>${d.dept}</td>
+            <td><span class="status ${d.status === 'IN' ? 'in' : 'out'}">${d.status}</span></td>
+            <td><button class="btn-delete" onclick="deleteRecord(${index})">Delete</button></td>
+        </tr>`;
+        tbody.insertAdjacentHTML('beforeend', row);
+    }
+
+    window.onload = loadData;
+</script>
+</body>
+</html>
