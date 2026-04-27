@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Record Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        .form-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        input, select, button { padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background-color: #2ecc71; color: white; cursor: pointer; border: none; font-weight: bold; }
+        button:hover { background-color: #27ae60; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #34495e; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .status-in { color: green; font-weight: bold; }
+        .status-out { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📂 File In/Out Record System</h2>
+    
+    <div class="form-group">
+        <input type="text" id="appNum" placeholder="App #">
+        <input type="text" id="regNum" placeholder="Reg #">
+        <input type="text" id="plotNum" placeholder="Plot #">
+        <input type="text" id="street" placeholder="Street">
+        <select id="status">
+            <option value="In">File In</option>
+            <option value="Out">File Out</option>
+        </select>
+        <button onclick="addRecord()">Add Record</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Ser #</th>
+                <th>App #</th>
+                <th>Reg #</th>
+                <th>Plot</th>
+                <th>Street</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            </tbody>
+    </table>
+</div>
+
+<script>
+    let serialCounter = 1;
+
+    function addRecord() {
+        const app = document.getElementById('appNum').value;
+        const reg = document.getElementById('regNum').value;
+        const plot = document.getElementById('plotNum').value;
+        const street = document.getElementById('street').value;
+        const status = document.getElementById('status').value;
+
+        if(!app || !reg) { alert("Please fill details"); return; }
+
+        const table = document.getElementById('tableBody');
+        const row = table.insertRow();
+        
+        row.innerHTML = `
+            <td>${serialCounter++}</td>
+            <td>${app}</td>
+            <td>${reg}</td>
+            <td>${plot}</td>
+            <td>${street}</td>
+            <td class="${status === 'In' ? 'status-in' : 'status-out'}">${status}</td>
+        `;
+
+        // Clear inputs
+        document.querySelectorAll('input').forEach(input => input.value = '');
+    }
+</script>
+
+</body>
+</html>
