@@ -10,21 +10,25 @@
         body { background: var(--bg); color: #333; padding: 20px; }
         .container { max-width: 1250px; margin: 0 auto; }
         
+        /* Header with Logo on Left */
         header { 
             background: white; 
-            padding: 20px; 
+            padding: 15px 30px; 
             border-radius: 12px; 
-            text-align: center; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
             margin-bottom: 25px; 
             border-top: 5px solid var(--citi-gold);
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
+            gap: 25px;
         }
 
-        .logo-img { max-width: 200px; height: auto; margin-bottom: 10px; }
-        header h1 { color: var(--citi-blue); font-size: 1.8rem; text-transform: uppercase; }
+        .logo-img { max-width: 150px; height: auto; }
+        
+        .header-text { text-align: left; }
+        .header-text h1 { color: var(--citi-blue); font-size: 1.8rem; text-transform: uppercase; line-height: 1.1; }
+        .header-text p { color: var(--citi-gold); font-weight: bold; font-size: 0.9rem; margin-top: 4px; }
         
         .form-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
@@ -54,9 +58,11 @@
 
 <div class="container">
     <header>
-        <img src="http://googleusercontent.com/image_collection/image_retrieval/18059404095954067780_0" alt="Citi Housing Logo" class="logo-img">
-        <h1>CITI HOUSING JHELUM</h1>
-        <p style="color: var(--citi-gold); font-weight: bold; font-size: 0.9rem;">RECORD DEPARTMENT | FILE TRACKING</p>
+        <img src="http://googleusercontent.com/image_collection/image_retrieval/530589173660868242_0" alt="Citi Housing Logo" class="logo-img">
+        <div class="header-text">
+            <h1>CITI HOUSING JHELUM</h1>
+            <p>RECORD DEPARTMENT | FILE TRACKING</p>
+        </div>
     </header>
 
     <div class="form-card">
@@ -112,7 +118,6 @@
     const tbody = document.getElementById('tableBody');
     const inputs = document.querySelectorAll('.nav-input');
 
-    // Arrow Navigation (Left/Right/Up/Down)
     inputs.forEach((input, index) => {
         input.addEventListener('keydown', (e) => {
             if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -128,7 +133,7 @@
 
     function loadData() {
         tbody.innerHTML = '';
-        const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+        const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
         [...saved].reverse().forEach((data, index) => {
             const originalIndex = saved.length - 1 - index;
             appendRow(data, originalIndex);
@@ -146,19 +151,19 @@
             dept: document.getElementById('dept').value,
             status: document.getElementById('status').value
         };
-        const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+        const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
         saved.push(obj);
-        localStorage.setItem('citi_v3_data', JSON.stringify(saved));
+        localStorage.setItem('citi_v4_data', JSON.stringify(saved));
         form.reset();
         loadData();
         inputs[0].focus();
     });
 
     window.deleteRecord = function(index) {
-        if(confirm("Are you sure you want to delete this?")) {
-            const saved = JSON.parse(localStorage.getItem('citi_v3_data')) || [];
+        if(confirm("Delete this record?")) {
+            const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
             saved.splice(index, 1);
-            localStorage.setItem('citi_v3_data', JSON.stringify(saved));
+            localStorage.setItem('citi_v4_data', JSON.stringify(saved));
             loadData();
         }
     }
