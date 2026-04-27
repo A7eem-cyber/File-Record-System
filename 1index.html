@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sawal e Masali</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #f0f2f5;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden; /* Taake button screen se bahar na nikal jaye */
+        }
+
+        h1 {
+            color: #1c1e21;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #42b72a;
+            color: white;
+        }
+
+        #yesBtn:hover {
+            background-color: #36a420;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #f02849;
+            color: white;
+            position: absolute; /* Ye zaroori hai movement ke liye */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kya tum masali ho?</h1>
+
+    <div class="container">
+        <button id="yesBtn" onclick="alert('Hahaha! Mujhe pata tha! 😂')">Haan</button>
+        
+        <button id="noBtn">Nahi</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+
+        // Jab mouse button ke upar aye (PC ke liye) ya click ho (Mobile ke liye)
+        const moveButton = () => {
+            // Screen ki width aur height nikalna
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+            // Button ki nayi position set karna
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        };
+
+        // Dono events par function chalayen
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('click', moveButton);
+    </script>
+
+</body>
+</html>
