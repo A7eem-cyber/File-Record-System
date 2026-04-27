@@ -5,64 +5,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CITI HOUSING JHELUM | Official Record</title>
     <style>
-        :root { --citi-blue: #0c2340; --citi-gold: #b38b00; --bg: #f4f7f9; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); color: #333; padding: 20px; }
-        .container { max-width: 1250px; margin: 0 auto; }
-        
-        /* Header with Logo on Left */
-        header { 
-            background: white; 
-            padding: 15px 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-            margin-bottom: 25px; 
-            border-top: 5px solid var(--citi-gold);
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 25px;
+        /* --- UPDATED SEA GREEN & BLUE THEME --- */
+        :root { 
+            --sea-green: #20b2aa; 
+            --corp-blue: #1b4f72; 
+            --bg-light: #f0f4f7; 
+            --white: #ffffff;
         }
 
-        .logo-img { max-width: 150px; height: auto; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-light); color: #333; padding: 20px; }
+        .container { max-width: 1250px; margin: 0 auto; }
         
-        .header-text { text-align: left; }
-        .header-text h1 { color: var(--citi-blue); font-size: 1.8rem; text-transform: uppercase; line-height: 1.1; }
-        .header-text p { color: var(--citi-gold); font-weight: bold; font-size: 0.9rem; margin-top: 4px; }
+        /* Header without Logo */
+        header { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 12px; 
+            text-align: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            margin-bottom: 25px; 
+            border-top: 6px solid var(--sea-green);
+        }
+
+        header h1 { 
+            color: var(--corp-blue); 
+            font-size: 2.2rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        header p { 
+            color: var(--sea-green); 
+            font-weight: bold; 
+            font-size: 1rem; 
+            margin-top: 5px; 
+            letter-spacing: 0.5px;
+        }
         
-        .form-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
+        .form-card { 
+            background: var(--white); 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); 
+            gap: 15px; 
+        }
+
         .input-box { display: flex; flex-direction: column; }
-        label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
+        label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #555; }
         
-        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--citi-gold); background: #fffdf5; box-shadow: 0 0 5px rgba(179, 139, 0, 0.2); }
+        input, select { 
+            padding: 12px; 
+            border: 1px solid #d1d5db; 
+            border-radius: 8px; 
+            font-size: 0.9rem; 
+            outline: none; 
+            transition: 0.3s; 
+        }
+
+        input:focus { 
+            border-color: var(--sea-green); 
+            background: #fafffe; 
+            box-shadow: 0 0 8px rgba(32, 178, 170, 0.2); 
+        }
         
-        .btn-save { background: var(--citi-blue); color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%; transition: 0.3s; text-transform: uppercase; }
-        .btn-save:hover { background: var(--citi-gold); transform: translateY(-1px); }
+        .btn-save { 
+            background: var(--corp-blue); 
+            color: var(--white); 
+            padding: 14px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 20px; 
+            width: 100%; 
+            transition: 0.3s; 
+            text-transform: uppercase; 
+            font-size: 1rem;
+        }
+
+        .btn-save:hover { 
+            background: var(--sea-green); 
+            transform: translateY(-1px); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
         
-        .table-card { background: white; border-radius: 12px; overflow-x: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .table-card { 
+            background: var(--white); 
+            border-radius: 12px; 
+            overflow-x: auto; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+
         table { width: 100%; border-collapse: collapse; min-width: 1000px; }
-        th { background: var(--citi-blue); color: white; padding: 15px; text-align: left; font-size: 0.75rem; text-transform: uppercase; }
-        td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+        th { 
+            background: var(--corp-blue); 
+            color: var(--white); 
+            padding: 18px; 
+            text-align: left; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+        }
+
+        td { padding: 14px 15px; border-bottom: 1px solid #edf2f7; font-size: 0.95rem; }
         
-        .status { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.7rem; }
-        .in { background: #e6fffa; color: #2c7a7b; }
-        .out { background: #fff5f5; color: #c53030; }
+        .status { padding: 5px 10px; border-radius: 6px; font-weight: bold; font-size: 0.7rem; }
+        .in { background: #e6fffa; color: #234e52; border: 1px solid #b2f5ea; }
+        .out { background: #fff5f5; color: #822727; border: 1px solid #fed7d7; }
         
-        .btn-delete { background: #fee2e2; color: #991b1b; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
-        .btn-delete:hover { background: #f87171; color: white; }
+        .btn-delete { 
+            background: #fff5f5; 
+            color: #c53030; 
+            border: 1px solid #feb2b2; 
+            padding: 6px 12px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover { background: #c53030; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <img src="http://googleusercontent.com/image_collection/image_retrieval/530589173660868242_0" alt="Citi Housing Logo" class="logo-img">
-        <div class="header-text">
-            <h1>CITI HOUSING JHELUM</h1>
-            <p>RECORD DEPARTMENT | FILE TRACKING</p>
-        </div>
+        <h1>CITI HOUSING JHELUM</h1>
+        <p>RECORD DEPARTMENT | FILE TRACKING SYSTEM</p>
     </header>
 
     <div class="form-card">
@@ -118,6 +196,7 @@
     const tbody = document.getElementById('tableBody');
     const inputs = document.querySelectorAll('.nav-input');
 
+    // Arrow Key Navigation
     inputs.forEach((input, index) => {
         input.addEventListener('keydown', (e) => {
             if (e.key === "ArrowRight" || e.key === "ArrowDown") {
@@ -133,7 +212,7 @@
 
     function loadData() {
         tbody.innerHTML = '';
-        const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
+        const saved = JSON.parse(localStorage.getItem('citi_v5_data')) || [];
         [...saved].reverse().forEach((data, index) => {
             const originalIndex = saved.length - 1 - index;
             appendRow(data, originalIndex);
@@ -151,19 +230,19 @@
             dept: document.getElementById('dept').value,
             status: document.getElementById('status').value
         };
-        const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
+        const saved = JSON.parse(localStorage.getItem('citi_v5_data')) || [];
         saved.push(obj);
-        localStorage.setItem('citi_v4_data', JSON.stringify(saved));
+        localStorage.setItem('citi_v5_data', JSON.stringify(saved));
         form.reset();
         loadData();
         inputs[0].focus();
     });
 
     window.deleteRecord = function(index) {
-        if(confirm("Delete this record?")) {
-            const saved = JSON.parse(localStorage.getItem('citi_v4_data')) || [];
+        if(confirm("Confirm Delete Record?")) {
+            const saved = JSON.parse(localStorage.getItem('citi_v5_data')) || [];
             saved.splice(index, 1);
-            localStorage.setItem('citi_v4_data', JSON.stringify(saved));
+            localStorage.setItem('citi_v5_data', JSON.stringify(saved));
             loadData();
         }
     }
@@ -171,7 +250,7 @@
     function appendRow(d, index) {
         const row = `<tr>
             <td>${d.app}</td>
-            <td style="font-weight:bold; color:var(--citi-blue);">${d.reg}</td>
+            <td style="font-weight:bold; color:var(--corp-blue);">${d.reg}</td>
             <td>${d.block}</td>
             <td>${d.plot}</td>
             <td>${d.street}</td>
