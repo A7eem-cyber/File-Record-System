@@ -3,199 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record Dept | File Tracking System</title>
+    <title>Record Management System | Professional</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #3b82f6;
-            --bg: #f1f5f9;
-            --card: #ffffff;
-            --text: #1e293b;
-            --danger: #ef4444;
-            --success: #22c55e;
-        }
-
+        :root { --primary: #00d2ff; --bg: #0b1120; --card: #1e293b; --text: #f8fafc; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
-        body { background-color: var(--bg); color: var(--text); padding: 20px; }
-
-        /* Professional Header */
-        header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        body { background-color: var(--bg); color: var(--text); padding: 15px; min-height: 100vh; }
+        .wrapper { max-width: 1300px; margin: 0 auto; width: 100%; }
+        
+        header { 
+            background: linear-gradient(135deg, #1e40af, #00d2ff); 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
         }
 
-        .container { max-width: 1100px; margin: 0 auto; }
-
-        /* Form Styling (Compulsory Fields) */
-        .form-card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+        .form-section { 
+            background: var(--card); 
+            padding: 25px; 
+            border-radius: 15px; 
+            margin-bottom: 25px; 
+            border: 1px solid rgba(255,255,255,0.1); 
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+        .grid-inputs { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 15px; 
+            margin-bottom: 20px; 
         }
 
-        .input-group { margin-bottom: 15px; }
-
-        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            outline: none;
+        label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: #38bdf8; font-weight: 600; }
+        
+        input, select { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 8px; 
+            border: 1px solid #334155; 
+            background: #0f172a; 
+            color: white; 
+            outline: none; 
             transition: 0.3s;
         }
 
-        input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(0, 210, 255, 0.3); }
 
-        .btn-add {
-            grid-column: 1 / -1;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
+        /* Compulsory field highlight */
+        input.compulsory { border-left: 4px solid #38bdf8; }
+
+        .btn { 
+            width: 100%; 
+            padding: 15px; 
+            background: var(--primary); 
+            color: #0f172a; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 1rem; 
+            transition: 0.3s; 
+            text-transform: uppercase;
         }
 
-        .btn-add:hover { background: #1d4ed8; }
+        .btn:hover { background: #fff; transform: translateY(-2px); }
 
-        /* Professional Table Styling */
-        .table-container {
-            background: var(--card);
-            border-radius: 12px;
-            overflow-x: auto;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        .table-container { 
+            background: var(--card); 
+            border-radius: 15px; 
+            overflow-x: auto; 
+            border: 1px solid rgba(255,255,255,0.1); 
         }
 
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
-
-        th { background: #f8fafc; padding: 15px; text-align: left; border-bottom: 2px solid #e2e8f0; font-size: 0.85rem; text-transform: uppercase; }
-
-        td { padding: 15px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
-
-        .status-in { color: var(--success); font-weight: bold; background: #dcfce7; padding: 4px 8px; border-radius: 4px; }
-        .status-out { color: var(--danger); font-weight: bold; background: #fee2e2; padding: 4px 8px; border-radius: 4px; }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.5rem; }
-        }
+        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        th { text-align: left; padding: 15px; background: #0f172a; color: #38bdf8; font-size: 0.8rem; text-transform: uppercase; }
+        td { padding: 12px 15px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
+        
+        .status-in { color: #4ade80; font-weight: bold; background: rgba(74, 222, 128, 0.1); padding: 4px 8px; border-radius: 5px; }
+        .status-out { color: #f87171; font-weight: bold; background: rgba(248, 113, 113, 0.1); padding: 4px 8px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Record Department Tracking System</h1>
-        <p>File In/Out Management Portal</p>
-    </header>
+    <div class="wrapper">
+        <header>
+            <h1>RECORD TRACKING DASHBOARD</h1>
+            <p>Real-time File, Plot & Street Management System</p>
+        </header>
 
-    <div class="form-card">
-        <h2 style="margin-bottom: 15px; font-size: 1.2rem;">New Entry (All Fields Compulsory)</h2>
-        <form id="fileForm" class="form-grid">
-            <div class="input-group">
-                <label>File Number *</label>
-                <input type="text" id="fileNo" placeholder="e.g. RD-405" required>
-            </div>
-            <div class="input-group">
-                <label>File Subject/Name *</label>
-                <input type="text" id="fileName" placeholder="e.g. Accounts 2024" required>
-            </div>
-            <div class="input-group">
-                <label>Department/Officer *</label>
-                <input type="text" id="dept" placeholder="Receiver Name" required>
-            </div>
-            <div class="input-group">
-                <label>Status *</label>
-                <select id="status" required>
-                    <option value="">-- Select Status --</option>
-                    <option value="IN">File IN (Returned)</option>
-                    <option value="OUT">File OUT (Issued)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Date *</label>
-                <input type="date" id="entryDate" required>
-            </div>
-            <button type="submit" class="btn-add">Add to Records</button>
-        </form>
+        <section class="form-section">
+            <form id="recordForm">
+                <div class="grid-inputs">
+                    <div><label>Reg/File No * (Lazmi)</label><input type="text" id="fNo" class="compulsory" required></div>
+                    
+                    <div><label>Block</label><input type="text" id="fBlock"></div>
+                    <div><label>Street #</label><input type="text" id="fStreet"></div>
+                    <div><label>Plot #</label><input type="text" id="fPlot"></div>
+                    <div><label>Receiver/Dept</label><input type="text" id="fDept"></div>
+                    <div>
+                        <label>Status</label>
+                        <select id="fStatus">
+                            <option value="IN">FILE IN</option>
+                            <option value="OUT">FILE OUT</option>
+                        </select>
+                    </div>
+                    <div><label>Date</label><input type="date" id="fDate"></div>
+                </div>
+                <button type="submit" class="btn">Add Entry to Records</button>
+            </form>
+        </section>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Block</th>
+                        <th>Street #</th>
+                        <th>Plot #</th>
+                        <th>Receiver/Dept</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="table-container">
-        <table id="recordTable">
-            <thead>
-                <tr>
-                    <th>File No</th>
-                    <th>File Name</th>
-                    <th>Issued To / By</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>RD-101</td>
-                    <td>Land Registry Docs</td>
-                    <td>Admin Office</td>
-                    <td><span class="status-out">OUT</span></td>
-                    <td>2026-04-28</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+    <script>
+        const form = document.getElementById('recordForm');
+        const tableBody = document.getElementById('tableBody');
 
-<script>
-    const form = document.getElementById('fileForm');
-    const table = document.getElementById('recordTable').getElementsByTagName('tbody')[0];
+        // Memory load (taake data refresh pe gayab na ho)
+        window.onload = () => {
+            const saved = JSON.parse(localStorage.getItem('myOfficeRecords')) || [];
+            saved.reverse().forEach(data => addRow(data));
+        };
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const record = {
+                no: document.getElementById('fNo').value,
+                block: document.getElementById('fBlock').value || '-',
+                street: document.getElementById('fStreet').value || '-',
+                plot: document.getElementById('fPlot').value || '-',
+                dept: document.getElementById('fDept').value || '-',
+                status: document.getElementById('fStatus').value,
+                date: document.getElementById('fDate').value || 'N/A'
+            };
+            addRow(record, true); // True means add to top
+            saveToMemory(record);
+            form.reset();
+        });
 
-        // Get values
-        const fileNo = document.getElementById('fileNo').value;
-        const fileName = document.getElementById('fileName').value;
-        const dept = document.getElementById('dept').value;
-        const status = document.getElementById('status').value;
-        const date = document.getElementById('entryDate').value;
-
-        // Create new row
-        const newRow = table.insertRow(0);
-
-        const cell1 = newRow.insertCell(0);
-        const cell2 = newRow.insertCell(1);
-        const cell3 = newRow.insertCell(2);
-        const cell4 = newRow.insertCell(3);
-        const cell5 = newRow.insertCell(4);
-
-        cell1.innerHTML = fileNo;
-        cell2.innerHTML = fileName;
-        cell3.innerHTML = dept;
-        cell4.innerHTML = `<span class="${status === 'IN' ? 'status-in' : 'status-out'}">${status}</span>`;
-        cell5.innerHTML = date;
-
-        // Clear form
-        form.reset();
-        alert("Record updated successfully!");
-    });
-</script>
-
-</body>
-</html>
+        function addRow(data, isNew = false) {
+            const rowHtml = `<tr>
+                <td style="font-weight:bold; color:#38bdf8;">${data.no}</td>
