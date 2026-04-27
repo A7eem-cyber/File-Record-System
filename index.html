@@ -3,283 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Record Management System</title>
+    <title>CITI HOUSING JHELUM | File Record</title>
     <style>
-        /* CORPORATE SMOOTH THEME */
+        /* --- CITI HOUSING PREMIUM THEME --- */
         :root {
-            --primary: #0284c7;
-            --bg-page: #f1f5f9;
-            --card-white: #ffffff;
-            --text-main: #0f172a;
-            --text-sub: #64748b;
-            --border-color: #e2e8f0;
+            --citi-gold: #b38b00;
+            --citi-blue: #0c2340;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --text-dark: #333333;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        
-        body { background-color: var(--bg-page); color: var(--text-main); padding: 40px 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
 
-        .dashboard-container { max-width: 1200px; margin: 0 auto; }
+        body { background-color: var(--bg-light); color: var(--text-dark); padding: 30px 15px; }
 
-        /* HEADER */
-        .page-header {
-            background: var(--card-white);
-            padding: 24px 32px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .container { max-width: 1250px; margin: 0 auto; }
 
-        .page-header h1 { font-size: 1.4rem; color: var(--primary); letter-spacing: -0.5px; }
-
-        /* ENTRY FORM SECTION */
-        .entry-card {
-            background: var(--card-white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
+        /* Branding Header */
+        header {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             margin-bottom: 30px;
+            border-top: 6px solid var(--citi-gold);
         }
 
-        .grid-layout {
+        header h1 { 
+            color: var(--citi-blue); 
+            font-size: 2.2rem; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+        }
+
+        header p { color: var(--citi-gold); font-weight: 600; margin-top: 5px; }
+
+        /* Entry Form Section */
+        .form-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 35px;
+        }
+
+        .grid-inputs {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
-            margin-bottom: 24px;
         }
 
-        .input-box { display: flex; flex-direction: column; }
+        .field { display: flex; flex-direction: column; }
 
-        label { font-size: 13px; font-weight: 600; color: var(--text-sub); margin-bottom: 8px; }
+        label { font-size: 0.85rem; font-weight: 700; color: #555; margin-bottom: 8px; }
 
         input, select {
-            padding: 11px 14px;
-            border: 1.5px solid var(--border-color);
+            padding: 12px;
+            border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 0.95rem;
             outline: none;
-            transition: 0.2s;
-            background: #fff;
+            transition: 0.3s;
         }
 
-        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1); }
+        input:focus, select:focus { border-color: var(--citi-gold); box-shadow: 0 0 8px rgba(179, 139, 0, 0.2); }
 
-        /* Special Styling for Required Field */
-        input#regNo { border-left: 4px solid var(--primary); }
+        /* Reg No Required Styling */
+        input#regNo { border-left: 5px solid var(--citi-gold); background: #fffdf5; }
 
-        .save-btn {
-            background-color: var(--primary);
+        .btn-save {
+            background: var(--citi-blue);
             color: white;
-            padding: 12px 35px;
+            padding: 14px 40px;
             border: none;
             border-radius: 8px;
-            font-weight: 600;
-            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
+            margin-top: 25px;
+            font-size: 1rem;
             transition: 0.3s;
-            display: inline-block;
+            box-shadow: 0 4px 10px rgba(12, 35, 64, 0.2);
         }
 
-        .save-btn:hover { background-color: #0369a1; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2); }
+        .btn-save:hover { background: var(--citi-gold); transform: translateY(-2px); }
 
-        /* DATA TABLE SECTION */
-        .data-card {
-            background: var(--card-white);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
+        /* Records Table Section */
+        .table-card {
+            background: var(--white);
+            border-radius: 15px;
             overflow: hidden;
-        }
-
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-
-        th {
-            background-color: #f8fafc;
-            padding: 16px;
-            font-size: 12px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--text-sub);
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        td { padding: 16px; border-bottom: 1px solid var(--border-color); font-size: 14px; }
-
-        tr:hover { background-color: #f1f5f9; }
-
-        .badge {
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block;
-        }
-        .status-in { background: #dcfce7; color: #166534; }
-        .status-out { background: #fee2e2; color: #991b1b; }
-
-    </style>
-</head>
-<body>
-
-    <div class="dashboard-container">
-        <header class="page-header">
-            <h1>📂 RECORD MANAGEMENT PORTAL</h1>
-            <div id="liveTime" style="font-size: 13px; font-weight: 600; color: var(--text-sub);"></div>
-        </header>
-
-        <div class="entry-card">
-            <form id="fileSystemForm">
-                <div class="grid-layout">
-                    <div class="input-box">
-                        <label>App #</label>
-                        <input type="text" id="appNo" placeholder="e.g. 1022">
-                    </div>
-                    <div class="input-box">
-                        <label>Reg # (Compulsory) *</label>
-                        <input type="text" id="regNo" required placeholder="e.g. REG-440">
-                    </div>
-                    <div class="input-box">
-                        <label>Receiver Department</label>
-                        <select id="recvDept">
-                            <option value="Transfer">Transfer</option>
-                            <option value="Account">Account</option>
-                            <option value="Building">Building</option>
-                            <option value="Head Quarter">Head Quarter</option>
-                        </select>
-                    </div>
-                    <div class="input-box">
-                        <label>Block</label>
-                        <input type="text" id="blk" placeholder="e.g. A-1">
-                    </div>
-                    <div class="input-box">
-                        <label>Plot #</label>
-                        <input type="text" id="plt" placeholder="e.g. 505">
-                    </div>
-                    <div class="input-box">
-                        <label>Street #</label>
-                        <input type="text" id="str" placeholder="e.g. 14">
-                    </div>
-                    <div class="input-box">
-                        <label>Status</label>
-                        <select id="status">
-                            <option value="IN">FILE IN</option>
-                            <option value="OUT">FILE OUT</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="save-btn">Save New Entry</button>
-            </form>
-        </div>
-
-        <div class="data-card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>App #</th>
-                        <th>Reg #</th>
-                        <th>Department</th>
-                        <th>Block</th>
-                        <th>Plot #</th>
-                        <th>Street #</th>
-                        <th>Status</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        const fileForm = document.getElementById('fileSystemForm');
-        const tableBody = document.getElementById('tableBody');
-
-        // Update Time
-        function updateTime() {
-            document.getElementById('liveTime').innerText = new Date().toLocaleString();
-        }
-        setInterval(updateTime, 1000);
-        updateTime();
-
-        // Load data on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            const data = JSON.parse(localStorage.getItem('officeRecords')) || [];
-            // Reverse so newest entries show at the top
-            data.reverse().forEach(item => appendRow(item));
-        });
-
-        // Form Submit Handler
-        fileForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const entry = {
-                app: document.getElementById('appNo').value || '-',
-                reg: document.getElementById('regNo').value,
-                dept: document.getElementById('recvDept').value,
-                block: document.getElementById('blk').value || '-',
-                plot: document.getElementById('plt').value || '-',
-                street: document.getElementById('str').value || '-',
-                status: document.getElementById('status').value,
-                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            // Save to LocalStorage
-            saveToStorage(entry);
-            
-            // Add to table immediately
-            appendRow(entry, true);
-            
-            // Reset form
-            fileForm.reset();
-        });
-
-        function appendRow(data, isNew = false) {
-            const row = `
-                <tr>
-                    <td style="color:#64748b; font-weight: 500;">${data.app}</td>
-                    <td style="font-weight: 700; color: #0284c7;">${data.reg}</td>
-                    <td>${data.dept}</td>
-                    <td>${data.block}</td>
-                    <td>${data.plot}</td>
-                    <td>${data.street}</td>
-                    <td><span class="badge ${data.status === 'IN' ? 'status-in' : 'status-out'}">${data.status}</span></td>
-                    <td style="font-size: 12px; color: #94a3b8;">${data.time}</td>
-                </tr>
-            `;
-            
-            if(isNew) {
-                tableBody.insertAdjacentHTML('afterbegin', row);
-            } else {
-                tableBody.insertAdjacentHTML('beforeend', rowHtmlFromOld(data));
-            }
-        }
-
-        // Helper for loading existing data
-        function rowHtmlFromOld(data) {
-            return `
-                <tr>
-                    <td style="color:#64748b; font-weight: 500;">${data.app}</td>
-                    <td style="font-weight: 700; color: #0284c7;">${data.reg}</td>
-                    <td>${data.dept}</td>
-                    <td>${data.block}</td>
-                    <td>${data.plot}</td>
-                    <td>${data.street}</td>
-                    <td><span class="badge ${data.status === 'IN' ? 'status-in' : 'status-out'}">${data.status}</span></td>
-                    <td style="font-size: 12px; color: #94a3b8;">${data.time}</td>
-                </tr>
-            `;
-        }
-
-        function saveToStorage(record) {
-            const history = JSON.parse(localStorage.getItem('officeRecords')) || [];
-            history.push(record);
-            localStorage.setItem('officeRecords', JSON.stringify(history));
-        }
-    </script>
-</body>
-</html>
+            box-shadow: 0 10px 25
