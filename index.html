@@ -5,86 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CITI HOUSING JHELUM | Official Record</title>
     <style>
-        :root {
-            --citi-blue: #0c2340;
-            --citi-gold: #b38b00;
-            --bg: #f4f7f9;
-        }
-
+        :root { --citi-blue: #0c2340; --citi-gold: #b38b00; --bg: #f4f7f9; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-
         body { background: var(--bg); color: #333; padding: 20px; }
-
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        header {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 25px;
-            border-top: 5px solid var(--citi-gold);
-        }
-
-        header h1 { color: var(--citi-blue); font-size: 2rem; margin-bottom: 5px; }
-        header p { color: var(--citi-gold); font-weight: bold; font-size: 1.1rem; }
-
-        .form-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-
+        .container { max-width: 1250px; margin: 0 auto; }
+        header { background: white; padding: 25px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 25px; border-top: 5px solid var(--citi-gold); }
+        header h1 { color: var(--citi-blue); font-size: 2rem; }
+        .form-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
         .input-box { display: flex; flex-direction: column; }
-
         label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #666; }
-
-        input, select {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        input:focus { border-color: var(--citi-gold); }
-
-        .btn-save {
-            background: var(--citi-blue);
-            color: white;
-            padding: 12px 35px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            width: 100%;
-            transition: 0.3s;
-        }
-
+        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem; outline: none; transition: 0.2s; }
+        input:focus { border-color: var(--citi-gold); background: #fffdf5; }
+        .btn-save { background: var(--citi-blue); color: white; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%; transition: 0.3s; }
         .btn-save:hover { background: var(--citi-gold); }
-
-        .table-card {
-            background: white;
-            border-radius: 12px;
-            overflow-x: auto;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        table { width: 100%; border-collapse: collapse; min-width: 800px; }
-
+        .table-card { background: white; border-radius: 12px; overflow-x: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
         th { background: var(--citi-blue); color: white; padding: 15px; text-align: left; font-size: 0.8rem; }
-
-        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
         .status { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.7rem; }
         .in { background: #e6fffa; color: #2c7a7b; }
         .out { background: #fff5f5; color: #c53030; }
+        .btn-delete { background: #fee2e2; color: #991b1b; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
+        .btn-delete:hover { background: #f87171; color: white; }
     </style>
 </head>
 <body>
@@ -98,29 +41,14 @@
     <div class="form-card">
         <form id="mainForm">
             <div class="grid">
-                <div class="input-box">
-                    <label>App #</label>
-                    <input type="text" id="app">
-                </div>
-                <div class="input-box">
-                    <label>Reg # * (Required)</label>
-                    <input type="text" id="reg" required>
-                </div>
-                <div class="input-box">
-                    <label>Block</label>
-                    <input type="text" id="block">
-                </div>
-                <div class="input-box">
-                    <label>Plot #</label>
-                    <input type="text" id="plot">
-                </div>
-                <div class="input-box">
-                    <label>Street #</label>
-                    <input type="text" id="street">
-                </div>
+                <div class="input-box"><label>App #</label><input type="text" class="nav-input" id="app"></div>
+                <div class="input-box"><label>Reg # *</label><input type="text" class="nav-input" id="reg" required></div>
+                <div class="input-box"><label>Block</label><input type="text" class="nav-input" id="block"></div>
+                <div class="input-box"><label>Plot #</label><input type="text" class="nav-input" id="plot"></div>
+                <div class="input-box"><label>Street #</label><input type="text" class="nav-input" id="street"></div>
                 <div class="input-box">
                     <label>Department</label>
-                    <select id="dept">
+                    <select id="dept" class="nav-input">
                         <option value="Transfer">Transfer</option>
                         <option value="Account">Account</option>
                         <option value="Building">Building</option>
@@ -129,7 +57,7 @@
                 </div>
                 <div class="input-box">
                     <label>Status</label>
-                    <select id="status">
+                    <select id="status" class="nav-input">
                         <option value="IN">FILE IN</option>
                         <option value="OUT">FILE OUT</option>
                     </select>
@@ -150,6 +78,7 @@
                     <th>Street #</th>
                     <th>Dept</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="tableBody"></tbody>
@@ -160,12 +89,26 @@
 <script>
     const form = document.getElementById('mainForm');
     const tbody = document.getElementById('tableBody');
+    const inputs = document.querySelectorAll('.nav-input');
 
-    // Load Data
-    window.onload = () => {
+    // 1. Arrow Key Navigation Logic
+    inputs.forEach((input, index) => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                if (index < inputs.length - 1) inputs[index + 1].focus();
+            }
+            if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                if (index > 0) inputs[index - 1].focus();
+            }
+        });
+    });
+
+    // 2. Load and Delete Logic
+    function loadData() {
+        tbody.innerHTML = '';
         const saved = JSON.parse(localStorage.getItem('citi_data')) || [];
-        saved.reverse().forEach(data => appendRow(data));
-    };
+        saved.forEach((data, index) => appendRow(data, index));
+    }
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -178,26 +121,37 @@
             dept: document.getElementById('dept').value,
             status: document.getElementById('status').value
         };
-        appendRow(obj, true);
         const saved = JSON.parse(localStorage.getItem('citi_data')) || [];
         saved.push(obj);
         localStorage.setItem('citi_data', JSON.stringify(saved));
         form.reset();
+        loadData();
     });
 
-    function appendRow(d, isNew = false) {
+    function deleteRecord(index) {
+        if(confirm("Kya aap ye record delete karna chahte hain?")) {
+            const saved = JSON.parse(localStorage.getItem('citi_data')) || [];
+            saved.splice(index, 1);
+            localStorage.setItem('citi_data', JSON.stringify(saved));
+            loadData();
+        }
+    }
+
+    function appendRow(d, index) {
         const row = `<tr>
             <td>${d.app}</td>
-            <td style="font-weight:bold; color:#0284c7;">${d.reg}</td>
+            <td style="font-weight:bold; color:var(--citi-blue);">${d.reg}</td>
             <td>${d.block}</td>
             <td>${d.plot}</td>
             <td>${d.street}</td>
             <td>${d.dept}</td>
             <td><span class="status ${d.status === 'IN' ? 'in' : 'out'}">${d.status}</span></td>
+            <td><button class="btn-delete" onclick="deleteRecord(${index})">Delete</button></td>
         </tr>`;
-        if(isNew) { tbody.insertAdjacentHTML('afterbegin', row); }
-        else { tbody.insertAdjacentHTML('beforeend', row); }
+        tbody.insertAdjacentHTML('afterbegin', row);
     }
+
+    window.onload = loadData;
 </script>
 
 </body>
